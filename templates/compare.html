@@ -1,0 +1,77 @@
+<html>
+<head>
+    <title>Compare Crops</title>
+</head>
+<body>
+    <h2>Compare Crops Side-by-Side</h2>
+    <form method="post">
+        Crop 1:
+        <select name="crop">
+            <option value="CORN">Corn</option>
+            <option value="SOYBEANS">Soybeans</option>
+            <option value="WHEAT">Wheat</option>
+            <option value="RICE">Rice</option>
+        </select><br>
+
+        Crop 2:
+        <select name="crop">
+            <option value="CORN">Corn</option>
+            <option value="SOYBEANS">Soybeans</option>
+            <option value="WHEAT">Wheat</option>
+            <option value="RICE">Rice</option>
+        </select><br>
+
+        State:
+        <select name="state">
+            <option value="ILLINOIS">Illinois</option>
+            <option value="IOWA">Iowa</option>
+            <option value="KANSAS">Kansas</option>
+            <option value="TEXAS">Texas</option>
+            <option value="NEBRASKA">Nebraska</option>
+        </select><br>
+
+        Year: <input name="year" value="2023"><br>
+        Acres: <input name="acres" value="100"><br>
+        Cost per Acre ($): <input name="cost" value="600"><br>
+
+        Subsidy Type:
+        <select name="subsidy">
+            <option value="ARC">ARC</option>
+            <option value="PLC">PLC</option>
+            <option value="Crop Insurance">Crop Insurance</option>
+            <option value="None">None</option>
+        </select><br>
+
+        Yield Std Dev (Risk): <input name="std_yield" value="15"><br>
+        Price Std Dev (Risk): <input name="std_price" value="1.0"><br><br>
+
+        <input type="submit" value="Compare">
+    </form>
+
+    {% if results %}
+        <h3>Comparison Results:</h3>
+        <table border="1" cellpadding="6">
+            <tr>
+                <th title="Crop name (e.g., Corn, Soybeans)">Crop</th>
+                <th title="Expected yield in bushels per acre">Yield</th>
+                <th title="Average market price per bushel in dollars">Price</th>
+                <th title="Net profit without subsidy">Base Profit</th>
+                <th title="Profit after applying the selected subsidy program">Adjusted Profit</th>
+                <th title="Average net profit from 1,000 randomized price/yield scenarios">Avg Simulated Profit</th>
+                <th title="Percentage of scenarios where profit was negative">Chance of Loss</th>
+            </tr>
+            {% for r in results %}
+                <tr>
+                    <td>{{ r.crop }}</td>
+                    <td>{{ r.yield if r.get('yield') else 'N/A' }}</td>
+                    <td>{{ r.price if r.get('price') else 'N/A' }}</td>
+                    <td>{{ '{:,.2f}'.format(r.base_profit) if r.get('base_profit') else 'N/A' }}</td>
+                    <td>{{ '{:,.2f}'.format(r.adjusted_profit) if r.get('adjusted_profit') else 'N/A' }}</td>
+                    <td>{{ '{:,.2f}'.format(r.avg_simulated_profit) if r.get('avg_simulated_profit') else 'N/A' }}</td>
+                    <td>{{ '{:.2f}'.format(r.chance_of_loss) if r.get('chance_of_loss') else 'N/A' }}%</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
