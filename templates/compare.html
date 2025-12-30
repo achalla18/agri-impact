@@ -4,7 +4,9 @@
 </head>
 <body>
     <h2>Compare Crops Side-by-Side</h2>
+    <!-- Form to input crop comparison details -->
     <form method="post">
+        <!-- Dropdown to select the first crop -->
         Crop 1:
         <select name="crop">
             <option value="CORN">Corn</option>
@@ -13,6 +15,7 @@
             <option value="RICE">Rice</option>
         </select><br>
 
+        <!-- Dropdown to select the second crop -->
         Crop 2:
         <select name="crop">
             <option value="CORN">Corn</option>
@@ -21,6 +24,7 @@
             <option value="RICE">Rice</option>
         </select><br>
 
+        <!-- Dropdown to select the state -->
         State:
         <select name="state">
             <option value="ILLINOIS">Illinois</option>
@@ -30,10 +34,14 @@
             <option value="NEBRASKA">Nebraska</option>
         </select><br>
 
+        <!-- Input field for the year -->
         Year: <input name="year" value="2023"><br>
+        <!-- Input field for the number of acres -->
         Acres: <input name="acres" value="100"><br>
+        <!-- Input field for the cost per acre -->
         Cost per Acre ($): <input name="cost" value="600"><br>
 
+        <!-- Dropdown to select the subsidy type -->
         Subsidy Type:
         <select name="subsidy">
             <option value="ARC">ARC</option>
@@ -42,9 +50,11 @@
             <option value="None">None</option>
         </select><br>
 
+        <!-- Input fields for risk parameters -->
         Yield Std Dev (Risk): <input name="std_yield" value="15"><br>
         Price Std Dev (Risk): <input name="std_price" value="1.0"><br><br>
 
+        <!-- Submit button to compare crops -->
         <input type="submit" value="Compare">
     </form>
 
